@@ -10,7 +10,7 @@ hand-written digits, from 0-9.
 
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
 # License: BSD 3 clause
-
+#Part1: library dependencies: sklearn, torch, tensorflow, numpy, transformers
 # Standard scientific Python imports
 import matplotlib.pyplot as plt
 
@@ -31,7 +31,7 @@ from sklearn.model_selection import train_test_split
 #
 # Note: if we were working from image files (e.g., 'png' files), we would load
 # them using :func:`matplotlib.pyplot.imread`.
-
+#Part 2 : load dataset 
 digits = datasets.load_digits()
 
 _, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
