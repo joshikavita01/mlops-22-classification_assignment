@@ -12,15 +12,19 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 
+from joblib import Parallel, delayed
+import joblib
+
+
 # 1. set the ranges of hyper parameters 
 gamma_list = [0.01, 0.005, 0.001, 0.0005, 0.0001]
 c_list = [0.1, 0.2, 0.5, 0.7, 1, 2, 5, 7, 10] 
 h_param_comb = [{'gamma':g, 'C':c} for g in gamma_list for c in c_list]
 
 assert len(h_param_comb) == len(gamma_list)*len(c_list)
-train_frac=0.8
-dev_frac=0.1
-test_frac=0.1
+train_frac=0.6
+dev_frac=0.2
+test_frac=0.2
 #Part 2 : load dataset 
 digits = datasets.load_digits()
 #Part 3 : Sanity check visualization of the data
@@ -84,9 +88,9 @@ for cur_h_params in h_param_comb:
     search_hyperparams.append(
                 {
                     "params": cur_h_params,
-                    "training_accuracy": metrics.classification_report(y_train, clf.predict(X_train), output_dict=True)['accuracy'],
-                    "testing_accuracy": metrics.classification_report(y_test, clf.predict(X_test), output_dict=True)['accuracy'],
-                    "dev_accuracy": metrics.classification_report(y_dev, clf.predict(X_dev), output_dict=True)['accuracy']
+                    "train_acc": metrics.classification_report(y_train, clf.predict(X_train), output_dict=True)['accuracy'],
+                    "test_acc": metrics.classification_report(y_test, clf.predict(X_test), output_dict=True)['accuracy'],
+                    "dev_acc": metrics.classification_report(y_dev, clf.predict(X_dev), output_dict=True)['accuracy']
                 }
     )
     print(search_hyperparams)
@@ -106,10 +110,13 @@ clf.set_params(**hyper_params)
 
 # Learn the digits on the train subset
 clf.fit(X_train, y_train)
+joblib.dump(clf, 'bestmodel2.pkl')
+
 
 # Predict the value of the digit on the test subset
 predicted = clf.predict(X_test)
 print(
     f"Classification report for classifier {clf}:\n"
     f"{metrics.classification_report(y_test, predicted)}\n"
+    
 )
