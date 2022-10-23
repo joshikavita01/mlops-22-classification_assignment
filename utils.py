@@ -83,4 +83,4 @@ def h_param_tuning(h_param_comb, clf, x_train, y_train, x_dev, y_dev, metric):
             best_h_params = cur_h_params
             print("Found new best metric with :" + str(cur_h_params))
             print("New best val metric:" + str(cur_metric))
-    return best_model, best_metric, 
+    return best_model, best_metric, best_h_params
