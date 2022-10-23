@@ -7,20 +7,21 @@ sys.path.append(".")
 
 from utils import get_all_h_param_comb, tune_and_save, preprocess_digits,predict_all_classes
 from sklearn import svm, metrics
-
+from sklearn import datasets, svm, metrics
+from sklearn.model_selection import train_test_split
 
 # test case to check if all the combinations of the hyper parameters are indeed getting created
+digits = datasets.load_digits()
+n_samples = len(digits.images)
+data = digits.images.reshape((n_samples,-1))
 
+X_train ,X_test, y_train, y_test = train_test_split(data, digits.target,test_size=0.5,shuffle=False)
+clf = svm.SVC(gamma=0.001)
+clf.fit(X_train, y_train)
+preds = clf.predict(X_test)
 def test_predict_all_classes():
-    gamma_list = [0.01, 0.005, 0.001, 0.0005, 0.0001]
-    c_list = [0.1, 0.2, 0.5, 0.7, 1, 2, 5, 7, 10]
-
-    params = {}
-    params["gamma"] = gamma_list
-    params["C"] = c_list
-    h_param_comb = get_all_h_param_comb(params)
-
-    assert len(h_param_comb) == len(gamma_list) * len(c_list)
+    total_preds={pred for pred in preds}
+    assert len(total_preds)==10
 
 def test_not_biased():
     gamma_list = [0.01, 0.005, 0.001, 0.0005, 0.0001]

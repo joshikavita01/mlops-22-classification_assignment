@@ -113,9 +113,7 @@ def tune_and_save(clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, mod
 
     return model_path
 
-def predict_all_classes(params):
-    h_param_comb = [{"gamma": g, "C": c} for g in params['gamma'] for c in params['C']]
-    return h_param_comb
+
 
 def not_biased(params):
     h_param_comb = [{"gamma": g, "C": c} for g in params['gamma'] for c in params['C']]
