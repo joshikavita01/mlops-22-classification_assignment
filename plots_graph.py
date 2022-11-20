@@ -81,6 +81,6 @@ for n in range(n_cv):
         )
 
 
-#stdoutOrigin=sys.stdout 
-#sys.stdout = open("/root/mlops-22-classification_assignment/results/svm_42.txt", "w")
+stdoutOrigin=sys.stdout 
+sys.stdout = open("/root/mlops-22-classification_assignment/results/svm_42.txt", "w")
 print(results)

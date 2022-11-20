@@ -130,8 +130,8 @@ def tune_and_save(
 
     if type(clf) == tree.DecisionTreeClassifier:
         model_type = "decision_tree"
-#"/root/mlops-22-classification_assignment/models/"
-    best_model_name = model_type + "_" + best_param_config + ".joblib"
+#
+    best_model_name = "/root/mlops-22-classification_assignment/models/" + model_type + "_" + best_param_config + ".joblib"
     if model_path == None:
         model_path = best_model_name
     dump(best_model, model_path)
