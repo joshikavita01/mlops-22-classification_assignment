@@ -3,7 +3,7 @@ from flask import request
 from joblib import load
 
 app = Flask(__name__)
-model_path = "svm_gamma=0.0005_C=2.joblib"
+model_path = "svm_gamma=0.001_C=0.5.joblib"  
 model = load(model_path)
 
 @app.route("/")
